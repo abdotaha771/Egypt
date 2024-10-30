@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>House Price Prediction</title>
+</head>
+<body>
+    <h1>Predict House Price</h1>
+    
+    <form action="/predict" method="POST">
+        <label for="type">Select Type:</label>
+        <select name="Type" id="type">
+            {% for type in types %}
+            <option value="{{ type }}" {% if data and data['Type'] == type %}selected{% endif %}>{{ type }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="city">Select City:</label>
+        <select name="City" id="city">
+            {% for city in cities %}
+            <option value="{{ city }}" {% if data and data['City'] == city %}selected{% endif %}>{{ city }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="compound">Select Compound:</label>
+        <select name="Compound" id="compound">
+            {% for compound in compounds %}
+            <option value="{{ compound }}" {% if data and data['Compound'] == compound %}selected{% endif %}>{{ compound }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="level">Select Level:</label>
+        <select name="Level" id="level">
+            {% for level in levels %}
+            <option value="{{ level }}" {% if data and data['Level'] == level %}selected{% endif %}>{{ level }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="bedrooms">Bedrooms:</label>
+        <input type="number" name="Bedrooms" id="bedrooms" value="{{ data['Bedrooms'] if data else '' }}" required>
+
+        <label for="bathrooms">Bathrooms:</label>
+        <input type="number" name="Bathrooms" id="bathrooms" value="{{ data['Bathrooms'] if data else '' }}" required>
+
+        <label for="area">Area (sqm):</label>
+        <input type="number" name="Area" id="area" value="{{ data['Area'] if data else '' }}" required>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction %}
+    <h2>Predicted Price: {{ prediction }}</h2>
+    {% endif %}
+</body>
+</html>
