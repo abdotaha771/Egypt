@@ -17,7 +17,7 @@ data = data.replace({
 # إعداد القيم الفريدة للعناصر الفئوية
 cities = data['City'].unique().tolist()
 compounds = data['Compound'].unique().tolist()
-types = data['Type'].unique().tolist()
+types = data[data['Type'] != 'Unknown']['Type'].unique().tolist()
 levels = data[data['Level'] != 'Unknown']['Level'].unique().tolist()
 
 # إنشاء Label Encoders لكل عمود فئوي
